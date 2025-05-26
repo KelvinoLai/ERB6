@@ -15,8 +15,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 urlpatterns = [
-    path('admin/', admin.site.urls),  ## the admin console is pre-builded
+    ## Place the most frequent access page on the top, so that more effective
+    path('', include('pages.urls', namespace='pages')), # Most ppl access empty '' 
+    ## namespace give the name pages to distinguish the common name 'index'
+    ## when you see empty string, go to pages.urls run pages
+    path('admin/', admin.site.urls),  
+    ## the admin console is pre-builded in Virtual Enviroment
 ]

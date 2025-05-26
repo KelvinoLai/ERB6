@@ -36,13 +36,14 @@ ALLOWED_HOSTS = []
 
 # Application definition
 ## Fundamental Build in libraries
-INSTALLED_APPS = [
+INSTALLED_APPS = [             #register apps here
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',  ##CCS and photos
+    'pages.apps.PagesConfig' #(register tell Django,program is in pages to run
 ]
 
 MIDDLEWARE = [      ##login and logout sessions
@@ -60,7 +61,8 @@ ROOT_URLCONF = 'ERB6.urls'    ## a class.attribute (urls a file)
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')], ## Register the templates folder
+        ## BASE_DIR is Root here
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
