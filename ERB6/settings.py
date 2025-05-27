@@ -113,8 +113,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'        ## Set the time Zone
 
-TIME_ZONE = 'UTC'              ## set login time log region
-
+TIME_ZONE = 'Asia/Hong_Kong'   ## set login time log region
+## 'UTC'  England time zone
 USE_I18N = True                ## Multilanguages
 
 USE_TZ = True                  ## Time zone
@@ -122,11 +122,12 @@ USE_TZ = True                  ## Time zone
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
-
-STATIC_URL = 'static/'        ##contains 
-# Static files 
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')  ## define output static root here
+STATIC_URL = 'static/'        ## URL in Templates (contains Static files)
+STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, 'ERB6/static') ## the source
+]
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'  ##  Define the SQL size
