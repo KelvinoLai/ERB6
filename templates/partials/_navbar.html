@@ -23,9 +23,10 @@
         {% comment %} fix the link later {% endcomment %}               
               <a class="nav-link" href={% url 'pages:about' %}>About</a>
             </li>
-            <li class="nav-item mr-3">
+            <li {% if 'listings' in request.path %} class="nav-item active mr-3" {%else%}
+            class="nav-item mr-3" {% endif %}>
        {% comment %} fix the link later {% endcomment %}
-                <a class="nav-link" href="listings.html">Featured Listings</a>
+                <a class="nav-link" href={% url "listings:listings"%}>Featured Listings</a>
             </li>
           </ul>
 

@@ -1,3 +1,6 @@
+from django.urls import include, path
+from debug_toolbar.toolbar import debug_toolbar_urls
+
 """
 URL configuration for ERB6 project.
 
@@ -16,12 +19,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
+from debug_toolbar.toolbar import debug_toolbar_urls
 urlpatterns = [
     ## Place the most frequent access page on the top, so that more effective
-    path('', include('pages.urls', namespace='pages')), # Most ppl access empty '' 
+    path('', include('pages.urls', namespace='pages')), # Most popular page
+    # Most ppl access empty '' 
     ## namespace give the name pages to distinguish the common name 'index'
     ## when you see empty string, go to pages.urls run pages
+    path('listings/', include('listings.urls', namespace='listings')),  # listings app, second most popular
+    ## realtors app has no Endpoint, so no need to include a URL
     path('admin/', admin.site.urls),  
     ## the admin console is pre-builded in Virtual Enviroment
-]
+] +  debug_toolbar_urls()

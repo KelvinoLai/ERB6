@@ -43,7 +43,10 @@ INSTALLED_APPS = [             #register apps here
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',  ##CCS and photos
-    'pages.apps.PagesConfig' #(register tell Django,program is in pages to run
+    'pages.apps.PagesConfig', #(register tell Django,program is in pages to run
+    'listings.apps.ListingsConfig',  ## register the app
+    'realtors.apps.RealtorsConfig',  ## register the app
+    'debug_toolbar'
 ]
 
 MIDDLEWARE = [      ##login and logout sessions
@@ -54,6 +57,7 @@ MIDDLEWARE = [      ##login and logout sessions
     'django.contrib.auth.middleware.AuthenticationMiddleware',  ##login handle
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "debug_toolbar.middleware.DebugToolbarMiddleware"  ## if you have you own Middtleware, place this in front of yours
 ]
 
 ROOT_URLCONF = 'ERB6.urls'    ## a class.attribute (urls a file)
@@ -131,3 +135,7 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'  ##  Define the SQL size
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
