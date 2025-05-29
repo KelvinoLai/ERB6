@@ -36,6 +36,6 @@ urlpatterns = [
     ## realtors app has no Endpoint, so no need to include a URL
     path('admin/', admin.site.urls),  
     ## the admin console is pre-builded in Virtual Enviroment
-] +  debug_toolbar_urls() + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    ] +  debug_toolbar_urls() + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 ## Interal functions not going to public are putted behind '+' sign

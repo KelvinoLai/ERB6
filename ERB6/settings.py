@@ -144,3 +144,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'  ##  Define the SQL size
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+## DECLARE THE MEDIA ROOT AND URL
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  ## Define the media root
+MEDIA_URL = '/media/'  ## URL in Templates (contains Media files)
