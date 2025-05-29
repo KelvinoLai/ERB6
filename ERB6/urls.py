@@ -20,6 +20,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from debug_toolbar.toolbar import debug_toolbar_urls
+from django.conf import settings   ##go see settings.py to find MEDIA_URL and MEDIA_ROOT
+from django.conf.urls.static import static
+
+
+## urlpatterns = []  ## a list of URL patterns, each pattern is a path to a view function
+## functions within the [] are going to the public. 
 urlpatterns = [
     ## Place the most frequent access page on the top, so that more effective
     path('', include('pages.urls', namespace='pages')), # Most popular page
@@ -30,4 +36,6 @@ urlpatterns = [
     ## realtors app has no Endpoint, so no need to include a URL
     path('admin/', admin.site.urls),  
     ## the admin console is pre-builded in Virtual Enviroment
-] +  debug_toolbar_urls()
+] +  debug_toolbar_urls() + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+## Interal functions not going to public are putted behind '+' sign

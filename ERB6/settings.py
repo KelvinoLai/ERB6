@@ -87,8 +87,13 @@ WSGI_APPLICATION = 'ERB6.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',      ## When config progress , then update this database
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'bcredb', ## / 'db.sqlite3',  ## When config postgresql , then update this database
+        'USER': 'postgres',  ## Postgres is the default user
+        'PASSWORD': os.getenv('DB_PASSWORD'),  ## Get the password from .env file
+        'HOST': 'localhost',  ## Localhost is the default host
+        'PORT': '5432',  ## Postgres default port
+
     }
 }
 
