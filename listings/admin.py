@@ -11,7 +11,11 @@ class ListingAdmin(admin.ModelAdmin):
     search_fields = 'title', 'description','address', 'price'  # Fields to search in the admin interface
     list_per_page = 25  # Number of listings to display per page in the admin interface
     ordering = ['-id']  # Default ordering of listings by list date in descending order
-    prepopulated_fields = {'title': ('title',)}  # Automatically populate the slug field based on the title
+ ##   title = 'Listings Admin'  # Title for the admin interface
+ ##    Example of how to use the slug field
+ ##    prepopulated_fields = {'title': ('title',)}  # Automatically populate the slug field based on the title
+    ## do not use the slug to insert spaces amid the argument as an endpoint of the URL
+
     formfield_overrides = {
         models.IntegerField: {'widget': NumberInput(attrs={'size': '10'})}}  # Use a number input for DecimalFields
     show_facets = admin.ShowFacets.ALWAYS

@@ -9,6 +9,7 @@ class RealtorAdmin(admin.ModelAdmin):
     list_per_page = 25  # Number of realtors to display per page in the admin interface
  
 admin.site.register(Realtor, RealtorAdmin)
+## place the Realtor model, and Realtor Admin menu in this admin.py to display
 
 
 

@@ -43,6 +43,7 @@ INSTALLED_APPS = [             #register apps here
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',  ##CCS and photos
+    'django.contrib.humanize',  ## Humanize the data, such as 1,000,000 to 1M
     'pages.apps.PagesConfig', #(register tell Django,program is in pages to run
     'listings.apps.ListingsConfig',  ## register the app
     'realtors.apps.RealtorsConfig',  ## register the app
