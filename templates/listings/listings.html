@@ -4,8 +4,10 @@
       <div class="container">
         <div class="row text-center">
           <div class="col-md-12">
-            <h1 class="display-4"> Browse Our Properties </h1> <!---expression from listings/views.py--->
+            <h1 class="display-4"> {{listing.title | title}} </h1> <!---expression from listings/views.py--->
             <p class="lead">
+              <i class="fas fa-map-marker"></i>
+              {{listing.district | title}} <!--humanize title capital output-->
               Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt,
               pariatur!
             </p>

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from listings.models import Listing  # Import the Listing model to use in views
 ## from lisings app, models.py file, import the Listing class
 
@@ -16,7 +16,12 @@ def index(request):
     ##   another simple alternative here
     ##   return render(request, 'listings/listings.html', {'name' : "something" })
     return render(request, 'listings/listings.html', context)
-def listing(request, listing_id):
-    return render(request, 'listings/listing.html')
+
+def listing(request, listing_id):  ##get one record only
+    listing = get_object_or_404(Listing, pk=listing_id)  ## Get the listing with the given ID from the database
+    ## Listing class here, we treat it as a table in the database
+
+    context = {'listing': listing}  ## Add the listing to the context dictionary
+    return render(request, 'listings/listing.html', context)  ## Render the listing template with the context
 def search(request):
     return render(request, 'listings/search.html')

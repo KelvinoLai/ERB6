@@ -27,12 +27,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SITE_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
+DEBUG = True    ## 404.html will not respond if set to True
+# DEBUG = False  ## If you set to False, then you need to set ALLOWED_HOSTS
+## Production environment, set to False, then you need to set ALLOWED_HOSTS
 
 ## Cloud server IP
-ALLOWED_HOSTS = []
 
+ALLOWED_HOSTS = [ "localhost", "127.0.0.1"]
+""" ALLOWED_HOSTS = [*]    Production environment, you can use * to allow all hosts, but it is not recommended for security reasons."""
 
 # Application definition
 ## Fundamental Build in libraries
