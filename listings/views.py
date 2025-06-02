@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from listings.models import Listing  # Import the Listing model to use in views
+## from lisings app, models.py file, import the Listing class
+
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger  # Import Paginator for pagination functionality
 
 # Create your views here.
