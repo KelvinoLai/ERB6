@@ -3,6 +3,7 @@ from listings.models import Listing  # Import the Listing model to use in views
 ## from lisings app, models.py file, import the Listing class
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger  # Import Paginator for pagination functionality
+from listings.choices import price_choices, bedroom_choices, district_choices  # Import choices for filtering listings
 
 # Create your views here.
 def index(request):
@@ -25,4 +26,61 @@ def listing(request, listing_id):  ##get one record only
     context = {'listing': listing}  ## Add the listing to the context dictionary
     return render(request, 'listings/listing.html', context)  ## Render the listing template with the context
 def search(request):
-    return render(request, 'listings/search.html')
+
+
+    ## writeing SQL command here
+    queryset_list = Listing.objects.order_by('-list_date')  ## Get all listings ordered by list date
+    ##
+
+### keywords from the search form in Search.html.
+    if 'keywords' in request.GET:  ## Check if 'keywords' is in the GET request
+        keywords = request.GET['keywords'] ## Get the value of 'keywords' from the GET request
+        if keywords:  ## Trusive if keywords is not empty
+            queryset_list = queryset_list.filter(description__icontains=keywords) ##double underscore ,icontains is a Django ORM filter that performs a case-insensitive search for the keywords in the description field of the Listing model.
+                                                ## condition to filter listings by keywords
+            ## Filter the queryset to include listings where the description contains the keywords, case-insensitive    
+            ## icontains is case-insenitive.
+
+
+    if 'title' in request.GET:  ## Check if 'keywords' is in the GET request
+        title = request.GET['title'] ## Get the value of 'keywords' from the GET request
+        if title:  ## Trusive if keywords is not empty
+            queryset_list = queryset_list.filter(title__icontains=title) 
+
+    if 'district' in request.GET:  ## Check if 'keywords' is in the GET request
+        district = request.GET['district'] ## Get the value of 'keywords' from the GET request
+        if district:  ## Trusive if keywords is not empty
+            queryset_list = queryset_list.filter(district__iexact=district) #i means case-insensitive (exact match)
+
+    if 'bedrooms' in request.GET:  ## Check if 'keywords' is in the GET request
+        bedrooms = request.GET['bedrooms'] ## Get the value of 'keywords' from the GET request
+        if bedrooms:  ## Trusive if keywords is not empty
+            queryset_list = queryset_list.filter(bedrooms__lte=bedrooms) 
+            ##i means case-insensitive (lte menas less than or equal to match)
+
+    if 'price' in request.GET:  ## Check if 'keywords' is in the GET request
+        price = request.GET['price'] ## Get the value of 'keywords' from the GET request
+        if price:  ## Trusive if keywords is not empty
+            queryset_list = queryset_list.filter(price__lte=price) 
+            ##i means case-insensitive (lte menas less than or equal to match)
+
+##  FOR DEBUGGING PURPOSES
+##  print(request.GET)  ## Print the GET request to the console for debugging purposes
+##  FOR DEBUGGING PURPOSES
+
+
+    context = {'price_choices': price_choices,
+               'bedroom_choices' : bedroom_choices,
+               'district_choices' : district_choices,
+               'listings': queryset_list,
+               'values': request.GET}  
+    
+               ## Add the listing to the context dictionary
+
+    return render(request, 'listings/search.html', context)
+
+"""  Three steps to and a function to the search page
+1. import classes
+2. define the function
+3. return add the context render 
+"""
