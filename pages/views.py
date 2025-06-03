@@ -3,6 +3,8 @@ from django.urls import reverse
 from django.http import HttpResponse
 from listings.models import Listing  # Import the Listing model to use in views
 from realtors.models import Realtor  # Import the Realtor model to use in views
+from listings.choices import price_choices, bedroom_choices, district_choices  # Import choices for filtering listings
+
 # Create your views here.
 def index(request):
 
@@ -14,7 +16,10 @@ def index(request):
 
                                                             ## is_published=True 
     listings = Listing.objects.order_by('-list_date').filter(is_published=True)[:3]  # Select all listings from the database, ordered by list date, only published listings in 3 itmes                                                            
-    context = {"listings": listings}  # Add the listings to the context
+    context = {"listings": listings,
+    "price_choices": price_choices, 
+    "bedroom_choices": bedroom_choices,
+    "district_choices": district_choices}  # Add the listings to the context
     return render(request, 'pages/index.html', context)  # Render the index template with the listings context
 ## objecits is a manager to communicate with the database, and we use it to filter and order the listings.
 ## build the sql command but not excuted until [:3] add this list.  

@@ -11,7 +11,8 @@ def index(request):
     paginator = Paginator(listings, 3)  ## Create a Paginator object with 3 listings per page, it's from Django Database
     page = request.GET.get('page')  ## Get the 'page' parameter from the request(from Frontend) it is the page number
     paged_listings = paginator.get_page(page)  ## Get the listings for the requested page, place the subset in 3 entites into the variable paged_listings
-    context = {'listings' : paged_listings}  ## Add the paginated listings to the context    
+    context = {'listings' : paged_listings} ## Add the paginated listings to the context 
+ 
    
     ##   another simple alternative here
     ##   return render(request, 'listings/listings.html', {'name' : "something" })
