@@ -21,7 +21,8 @@ div.breadcrumbs {
 div.breadcrumbs a {
     color: #333;
 }
-.module h2,
+
+.module h2,      /* header */
 .module caption,
 .inlinegroup h2 {
     background: ##29AB88;

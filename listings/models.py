@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 from realtors.models import Realtor ## import the Realtor class and builded the foreign key relation
 from datetime import datetime
-
+from listings.choices import district_choices  ## import the choices for estate type
 # Create your models here.
 class Listing(models.Model):
     realtor = models.ForeignKey(Realtor, on_delete=models.DO_NOTHING) 
@@ -13,7 +13,7 @@ class Listing(models.Model):
     price = models.IntegerField()
     address = models.CharField(max_length=200)
     street = models.CharField(max_length=200)
-    district = models.CharField(max_length=200)
+    district = models.CharField(max_length=50, choices=district_choices.items())  #() because Run the dictionary for once
     description = models.TextField(blank=True)
     bedrooms = models.IntegerField()
     bathrooms = models.DecimalField(max_digits=2, decimal_places=1)

@@ -1,0 +1,28 @@
+<!-- humanize exist in index.html , this page is part of index.html -->
+{% if messages %}  <!-- Check if messages exist -->
+<!-- Messsage -->
+{% for message in messages %}  <!--Clear all the values of variable whenever this for loop running-->
+<div class="container" id="message"> <!--The ID of container will pass back to main.js-->
+    <!-- Display message and disappear after 2 second -->
+
+<!-- either red: danger, or green: success , because of bootstrip.  reference to MESSAGE_TAGS in setting.py -->
+    <div class="alert alert-{{message.tags}} alert-dismissible text-center" role="alert">
+        <!-- Close button -->
+        <button class="close" type="button" data-dismiss="alert" >
+            <span aria-hidden="true">&times;</span>
+        </button>
+
+        <!-- Message content -->
+        <strong>
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+            Error: {% else %}
+        <!--Ordinary Message-->
+        {{message.tags | title}} 
+        {% endif %}
+        </strong>
+        {{ message }}
+    </div>
+</div>
+{% endfor %}
+<!-- End messages -->
+{% endif %}

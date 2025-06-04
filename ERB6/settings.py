@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-
+from django.contrib.messages import constants as messages
 from pathlib import Path
 from dotenv import load_dotenv
 import os
@@ -50,9 +50,12 @@ INSTALLED_APPS = [             #register apps here
     'pages.apps.PagesConfig', #(register tell Django,program is in pages to run
     'listings.apps.ListingsConfig',  ## register the app
     'realtors.apps.RealtorsConfig',  ## register the app
-    'debug_toolbar'
+    'debug_toolbar',
+    'accounts.apps.AccountsConfig',  ## register the app
+
 ]
 
+## Mostly Global Middleware, such as security, session, csrf, authentication, messages, clickjacking
 MIDDLEWARE = [      ##login and logout sessions
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -152,3 +155,9 @@ INTERNAL_IPS = [
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  ## Define the media root
 MEDIA_URL = '/media/'  ## URL in Templates (contains Media files)
+
+### ERROR in RED, SUCCESS in GREEN
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',  ## Change the error message to danger
+    messages.SUCCESS: 'success',  ## Change the success message to success 
+}

@@ -34,6 +34,7 @@ urlpatterns = [
     ## when you see empty string, go to pages.urls run pages
     path('listings/', include('listings.urls', namespace='listings')),  # listings app, second most popular
     ## realtors app has no Endpoint, so no need to include a URL
+    path('accounts/', include('accounts.urls', namespace='accounts')),  # accounts app, third most popular
     path('admin/', admin.site.urls),  
     ## the admin console is pre-builded in Virtual Enviroment
     ] +  debug_toolbar_urls() + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
