@@ -52,6 +52,7 @@ INSTALLED_APPS = [             #register apps here
     'realtors.apps.RealtorsConfig',  ## register the app
     'debug_toolbar',
     'accounts.apps.AccountsConfig',  ## register the app
+    'contacts.apps.ContactsConfig',  ## register the app
 
 ]
 
@@ -161,3 +162,21 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger',  ## Change the error message to danger
     messages.SUCCESS: 'success',  ## Change the success message to success 
 }
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  ## Use console to send email in development
+EMAIL_HOST = 'smtp.gmail.com'  ## Gmail SMTP server
+EMAIL_PORT = 587  ## Gmail SMTP port
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')  ## Get the email host user from .env file
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')  ## Get the email host password from .env file
+EMAIL_USE_TLS = True  ## Use TLS for secure connection
+
+
+"""
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  ## Use SMTP to send email
+EMAIL_HOST = 'smtp.gmail.com'  ## gmail SMTP server
+EMAIL_PORT = 587  ## Gmail SMTP port
+EMAIL_USE_TLS = True  ## Use TLS for secure connection
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')  ## Get the email host user from .env file
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')  ## Get the email host password from .env file
+"""

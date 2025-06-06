@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages, auth
 from django.contrib.auth.models import User # Create your views here.
-
+from contacts.models import Contact
 ## you can customize the user model by creating a new model and inheriting from AbstractUser
 
 # Create your views here.
@@ -18,10 +18,14 @@ def register(request):
                 messages.error(request, 'Username already exists !')
                 return redirect('accounts:register')
             else:
-                user = User.objects.create_user(username=username,password=password,email=email,first_name=first_name,last_name=last_name)
-                user.save()
-                messages.success(request, 'Account created successfully !')
-                return redirect('accounts:login')
+                if User.objects.filter(email=email).exists():
+                    messages.error(request, 'Email already exists !')
+                    return redirect('accounts:register')
+                else:
+                    user = User.objects.create_user(username=username,password=password,email=email,first_name=first_name,last_name=last_name)
+                    user.save()
+                    messages.success(request, 'Account created successfully !')
+                    return redirect('accounts:login')
         else:
             messages.error (request,"Passwords do not match !")
             return redirect('accounts:register')  ## no need to render a page, save ram
@@ -43,7 +47,16 @@ def login(request):
     else:
         return render(request, 'accounts/login.html')
     
-def logout(request):    
-    return redirect(request, 'pages:index')  # Redirect to the index page after logout
+def logout(request): 
+    if request.method == 'POST':  
+        auth.logout(request)  ## logout the user successfully
+         
+## will not logout if the javascript link is not clicked
+## stay on the login session and direct to index page
+    return redirect('pages:index') 
+## Redirect to the index page anyway no matter logout is successful or not
+
 def dashboard(request):
-    return render(request, 'accounts/dashboard.html')
+    user_contacts = Contact.objects.order_by('-contact_date').filter(user_id=request.user.id)  # Get contacts for the logged-in user
+    context = {"contacts": user_contacts}  # Pass the contacts to the template
+    return render(request, 'accounts/dashboard.html', context)

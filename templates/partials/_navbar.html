@@ -29,19 +29,37 @@
           </ul>
 
           <ul class="navbar-nav ml-auto">
+            {% if user.is_authenticated %}
+            <li {% if 'dashboard' in request.path %} class="nav-item active mr-3" 
+            {%else%} 
+              class= "nav-item mr-3" {% endif %}>
+              <a class="nav-link" href="{% url 'accounts:dashboard' %}">
+                Welcome {{user.username}} (Dashboard)
+                </a>
+              </li>
+              <!--logout-->
+            <li class="nav-item mr-3">
+              <!-- click on the link to toggle the use the form to POST to endpoint-->
+              <a href="javascript:{document.getElementById('logout').submit()}" class="nav-link">
+                <i class="fas fa-sign-out-alt"> Logout</i>
+              </a>
+                <form action="{% url 'accounts:logout' %}" method="post" id="logout">
+                  {% csrf_token %} 
+              <!-- kill the token once going back to backend and clear the user-->
+                  <input type="hidden"> <!--the form will not appear  -->
+                </form>
+            </li>
+              <!--end of logout-->
+            {% else %}
             <li {% if 'register' in request.path %} class="nav-item active mr-3" {%else%} class= "nav-item mr-3" {% endif %}>
-              <a class="nav-link" href={% url 'accounts:register' %}>
+              <a class="nav-link" href="{% url 'accounts:register' %}">
                 <i class="fas fa-user-plus"></i> Register</a>
-            {% comment %} class= ""nav-item active mr-3" means light on {% endcomment %}
               </li>
             <li {% if 'login' in request.path %} class="nav-item active mr-3" {%else%} class= "nav-item mr-3" {% endif %}>
-
               <a class="nav-link" href="{% url 'accounts:login' %}">
-                <i class="fas fa-sign-in-alt"></i>
-
-                Login</a
-              >
+                <i class="fas fa-sign-in-alt"></i> Login</a>
             </li>
+            {% endif %}
           </ul>
         </div>
       </div>

@@ -3,6 +3,8 @@
 
 {% load static %}
 {% load humanize %}
+
+{% block title %} | {{listing.title}} {% endblock title %}
 <!-- Block Content -->
 {% block content %}  
 
@@ -34,7 +36,7 @@
         </nav>
       </div>
     </section>
-
+{% include "partials/_alert.html" %}
     <!-- Listing -->
     <section id="listing" class="py-4">
       <div class="container">
@@ -172,7 +174,9 @@
               data-toggle="modal"
               data-target="#inquiryModal"
             >
-              Make An Inquiry
+            <!-- #inquiryModal meansthe id of Modal, in order to grap the modal below-->
+            <!-- it's bootstirp internal calling, we don't need to deal with it-->
+            Make An Inquiry
             </button>
           </div>
         </div>
@@ -190,7 +194,16 @@
             </button>
           </div>
           <div class="modal-body">
-            <form>
+            <form action="{% url 'contacts:contact' %}" method="POST">
+              {%  csrf_token  %}
+              <input type="hidden" name="listing_id" value="{{listing.id}}" />
+              <input type="hidden" name="realtor_email" value="{{listing.realtor.email}}" />
+              {% if user.is_authenticated %}
+              <input type="hidden" name="user_id" value="{{user.id}}" />
+              {% else %}
+              <input type="hidden" name="user_id" value=0 />
+              {% endif %}
+
               <div class="form-group">
                 <label for="property_name" class="col-form-label"
                   >Property:</label
@@ -199,22 +212,21 @@
                   type="text"
                   name="listing"
                   class="form-control"
-                  value="45 Prince Street"
-                  disabled
-                />
+                  value="{{listing.title | title}}"
+                  readonly
+                /> <!--disable here, do not allow the user to alter the title fomation-->
+                <!---- do not use disable here, because no value will be passed to the server-->
+                <!-- use readonly-->
               </div>
               <div class="form-group">
                 <label for="name" class="col-form-label">Name:</label>
-                <input type="text" name="name" class="form-control" required />
+                <input type="text" name="name" class="form-control" {% if user.is_authenticated %} value="{{user.first_name}} {{user.last_name}}" readonly {% endif %}/>
               </div>
               <div class="form-group">
                 <label for="email" class="col-form-label">Email:</label>
-                <input
-                  type="email"
-                  name="email"
-                  class="form-control"
-                  required
-                />
+                <input type="email" name="email" class="form-control"
+                  {% if user.is_authenticated %} value="{{user.email}}" 
+                  readonly {% endif %} />
               </div>
               <div class="form-group">
                 <label for="phone" class="col-form-label">Phone:</label>
